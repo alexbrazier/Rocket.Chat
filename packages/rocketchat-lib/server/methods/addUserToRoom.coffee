@@ -23,6 +23,7 @@ Meteor.methods
 
 
 		newUser = RocketChat.models.Users.findOneByUsername data.username
+
 		RocketChat.addUserToRoom(data.rid, newUser, Meteor.user());
 
 		return true

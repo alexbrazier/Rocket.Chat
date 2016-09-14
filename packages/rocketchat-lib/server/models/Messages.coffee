@@ -224,6 +224,16 @@ RocketChat.models.Messages = new class extends RocketChat.models._Base
 
 		return @update query, update
 
+	updateAllNamesByUserId: (userId, name) ->
+		query =
+			'u._id': userId
+
+		update =
+			$set:
+				"u.name": name
+
+		return @update query, update, { multi: true }
+
 	updateUserStarById: (_id, userId, starred) ->
 		query =
 			_id: _id
@@ -273,6 +283,7 @@ RocketChat.models.Messages = new class extends RocketChat.models._Base
 			u:
 				_id: user._id
 				username: user.username
+				name: user.name
 			groupable: false
 
 		_.extend record, extraData

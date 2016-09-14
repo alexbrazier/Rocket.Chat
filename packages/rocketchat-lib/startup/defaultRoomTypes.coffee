@@ -41,7 +41,7 @@ RocketChat.roomTypes.add 'd', 20,
 				$all: [identifier, user.username]
 		return ChatRoom.findOne(query)
 	roomName: (roomData) ->
-		return ChatSubscription.findOne({ rid: roomData._id }, { fields: { name: 1 } })?.name
+		return ChatSubscription.findOne({ rid: roomData._id }, { fields: { name: 1, fname: 1 } })
 	condition: ->
 		return RocketChat.authz.hasAtLeastOnePermission ['view-d-room', 'view-joined-room']
 
