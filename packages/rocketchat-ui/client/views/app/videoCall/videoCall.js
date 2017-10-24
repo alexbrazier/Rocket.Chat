@@ -89,9 +89,50 @@ Template.videoCall.helpers({
 			template.mainVideo.set('$auto');
 		}
 	},
+	mainVideoEnabled() {
+		const template = Template.instance();
+		const webrtc = WebRTC.getInstanceByRoomId(Session.get('openedRoom'));
+		if (template.mainVideo.get() === '$self') {
+			return webrtc.media.video;
+		}
+		if (template.mainVideo.get() === '$auto') {
+			const remoteItems = webrtc.remoteItems.get() | [];
+			if (remoteItems.length > 0) {
+				return remoteItems[0].media.video;
+			}
+			return webrtc.media.video;
+		}
+		if (webrtc.remoteItemsById.get()[template.mainVideo.get()] != null) {
+			return webrtc.remoteItemsById.get()[template.mainVideo.get()].media.video;
+		}
+		return false;
+	},
+	mainVideoActualUsername() {
+		const template = Template.instance();
+		const webrtc = WebRTC.getInstanceByRoomId(Session.get('openedRoom'));
+		if (template.mainVideo.get() === '$self') {
+			return Meteor.user().username;
+		}
+		if (template.mainVideo.get() === '$auto') {
+			const remoteItems = webrtc.remoteItems.get() || [];
+			if (remoteItems.length > 0) {
+				const user = Meteor.users.findOne(remoteItems[0].id);
+				return user != null ? user.username : undefined;
+			}
+			return Meteor.user().username;
+		}
+		if (webrtc.remoteItemsById.get()[template.mainVideo.get()] != null) {
+			const user = Meteor.users.findOne(webrtc.remoteItemsById.get()[template.mainVideo.get()].id);
+			return user != null ? user.username : undefined;
+		}
+		return Meteor.user().username;
+	},
 	usernameByUserId(userId) {
 		const user = Meteor.users.findOne(userId);
 		return user != null ? user.username : undefined;
+	},
+	username() {
+		return Meteor.user().username;
 	}
 });
 

@@ -254,7 +254,8 @@ class WebRTCClass {
 				const item = {
 					id,
 					url: URL.createObjectURL(remoteStream),
-					state: peerConnection.iceConnectionState
+					state: peerConnection.iceConnectionState,
+					media: peerConnection.remoteMedia
 				};
 				switch (peerConnection.iceConnectionState) {
 					case 'checking':

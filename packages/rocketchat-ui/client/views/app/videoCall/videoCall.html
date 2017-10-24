@@ -3,13 +3,21 @@
 		{{#if videoActive}}
 			<div class="webrtc-video {{#if overlay}}webrtc-video-overlay background-transparent-darker{{/if}}">
 				<div class="main-video background-transparent-darker">
-					<video src="{{mainVideoUrl}}" autoplay muted="true" class="webrtc-video-element {{#if $eq mainVideoUrl selfVideoUrl}}{{#unless screenShareEnabled}}video-flip{{/unless}}{{/if}}"></video>
+					{{#if mainVideoActive}}
+						<video src="{{mainVideoUrl}}" autoplay muted="true" class="webrtc-video-element {{#if $eq mainVideoUrl selfVideoUrl}}{{#unless screenShareEnabled}}video-flip{{/unless}}{{/if}}"></video>
+					{{else}}
+						<div class="webrtc-video-element" style="background-image:url(/avatar/{{mainVideoActualUsername}});background-size:cover;background-position:center;margin-top:0;"></div>
+					{{/if}}
 					<div class="background-transparent-darker">{{mainVideoUsername}}</div>
 				</div>
 				<div class="videos">
 					{{#if selfVideoUrl}}
 						<div class="video-item background-transparent-darker" data-username="$self">
-							<video src="{{selfVideoUrl}}" autoplay muted="true" class="webrtc-video-element {{#unless screenShareEnabled}}video-flip{{/unless}}"></video>
+							{{#if videoEnabled}}
+								<video src="{{selfVideoUrl}}" autoplay muted="true" class="webrtc-video-element {{#unless screenShareEnabled}}video-flip{{/unless}}"></video>
+							{{else}}
+								<div class="webrtc-video-element" style="background-image:url(/avatar/{{username}});background-size:cover;background-position:center;margin-top:0;"></div>
+							{{/if}}
 							{{#unless audioAndVideoEnabled}}
 								<div class="video-muted-overlay background-transparent-darker">
 									{{#unless audioEnabled}}
@@ -27,7 +35,11 @@
 					{{/if}}
 					{{#each remoteVideoItems}}
 						<div class="video-item background-transparent-darker {{#unless connected}}state-overlay background-transparent-darker-before{{/unless}}" data-state-text="{{stateText}}" data-username="{{id}}">
+							{{#if media.video}}
 							<video src="{{url}}" autoplay class="webrtc-video-element"></video>
+							{{else}}
+								<div class="webrtc-video-element" style="background-image:url(/avatar/{{usernameByUserId id}});background-size:cover;background-position:center;margin-top:0;"></div>							
+							{{/if}}
 							<div class="background-transparent-darker">{{usernameByUserId id}}</div>
 						</div>
 					{{/each}}
