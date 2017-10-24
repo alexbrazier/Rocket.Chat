@@ -15,9 +15,11 @@
 									{{#unless audioEnabled}}
 										<button><i class="icon-mute"></i></button>
 									{{/unless}}
-									{{#unless videoEnabled}}
-										<button><i class="icon-eye-off"></i></button>
-									{{/unless}}
+									{{#if videoAllowed}}
+										{{#unless videoEnabled}}
+											<button><i class="icon-eye-off"></i></button>
+										{{/unless}}
+									{{/if}}
 								</div>
 							{{/unless}}
 							<div class="background-transparent-darker">{{_ "you"}}</div>
@@ -38,10 +40,12 @@
 						{{else}}
 							<button class="button enable-audio" title="{{_ 'Unmute'}}" aria-label="{{_ 'Unmute'}}"><i class="icon-mic"></i></button>
 						{{/if}}
-						{{#if videoEnabled}}
-							<button class="button disable-video"><i class="icon-eye-off"></i></button>
-						{{else}}
-							<button class="button enable-video"><i class="icon-eye"></i></button>
+						{{#if videoAllowed}}
+							{{#if videoEnabled}}
+								<button class="button disable-video"><i class="icon-eye-off"></i></button>
+							{{else}}
+								<button class="button enable-video"><i class="icon-eye"></i></button>
+							{{/if}}
 						{{/if}}
 						{{#if screenShareAvailable}}
 							{{#if screenShareEnabled}}

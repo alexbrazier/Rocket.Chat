@@ -10,6 +10,9 @@ Template.videoButtons.helpers({
 	},
 	callInProgress() {
 		return WebRTC.getInstanceByRoomId(Session.get('openedRoom')).callInProgress.get();
+	},
+	videoAllowed() {
+		return RocketChat.settings.get('WebRTC_Enable_Video');
 	}
 });
 

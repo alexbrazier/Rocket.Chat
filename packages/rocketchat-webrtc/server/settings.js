@@ -1,4 +1,14 @@
 RocketChat.settings.addGroup('WebRTC', function() {
+	this.add('WebRTC_Enable_Video', true, {
+		type: 'boolean',
+		group: 'WebRTC',
+		'public': true
+	});
+	this.add('WebRTC_Enable_Screenshare', true, {
+		type: 'boolean',
+		group: 'WebRTC',
+		'public': true
+	});
 	this.add('WebRTC_Enable_Channel', false, {
 		type: 'boolean',
 		group: 'WebRTC',

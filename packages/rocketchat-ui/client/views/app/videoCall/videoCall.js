@@ -30,11 +30,15 @@ Template.videoCall.helpers({
 	videoEnabled() {
 		return WebRTC.getInstanceByRoomId(Session.get('openedRoom')).videoEnabled.get();
 	},
+	videoAllowed() {
+		return RocketChat.settings.get('WebRTC_Enable_Video');
+	},
 	audioAndVideoEnabled() {
 		return WebRTC.getInstanceByRoomId(Session.get('openedRoom')).audioEnabled.get() && WebRTC.getInstanceByRoomId(Session.get('openedRoom')).videoEnabled.get();
 	},
 	screenShareAvailable() {
-		return WebRTC.getInstanceByRoomId(Session.get('openedRoom')).screenShareAvailable;
+		return RocketChat.settings.get('WebRTC_Enable_Screenshare') &&
+			WebRTC.getInstanceByRoomId(Session.get('openedRoom')).screenShareAvailable;
 	},
 	screenShareEnabled() {
 		return WebRTC.getInstanceByRoomId(Session.get('openedRoom')).screenShareEnabled.get();
